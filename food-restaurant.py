@@ -16,6 +16,12 @@ st.title("Food Restaurant")
 st.subheader("This is a food restaurant recommendation webpage")
 user_input = st.text_area("Enter some specific place that you want to find a restaurant", "Thailand, Bangkok")
 
+st.title('Writing tutor')
+st.markdown('Input the writing that you want to improve. \n\
+            The AI will give you suggestions on how to improve it.')
+
+user_input = st.text_area("Enter some text to correct:", "Your text here")
+
 # submit button after text input
 if st.button('Submit'):
     messages_so_far = [
