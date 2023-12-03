@@ -15,3 +15,10 @@ province, district, subdistrict, and street name. And then show the opening time
 st.title("Food Restaurant")
 st.subheader("This is a food restaurant recommendation webpage")
 user_input = st.text_area("Enter some specific place that you want to find a restaurant", "Thailand, Bangkok")
+
+sd = json.loads(suggestion_dictionary)
+
+print (sd)
+suggestion_df = pd.DataFrame.from_dict(sd)
+print(suggestion_df)
+st.table(suggestion_df)
