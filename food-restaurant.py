@@ -16,6 +16,20 @@ st.title("Food Restaurant")
 st.subheader("This is a food restaurant recommendation webpage")
 user_input = st.text_area("Enter some specific place that you want to find a restaurant", "Thailand, Bangkok")
 
+# submit button after text input
+if st.button('Submit'):
+    messages_so_far = [
+        {"role": "system", "content": prompt},
+        {'role': 'user', 'content': user_input},
+    ]
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=messages_so_far
+    )
+    # Show the response from the AI in a box
+    st.markdown('**AI response:**')
+    suggestion_dictionary = response.choices[0].message.content
+
 sd = json.loads(suggestion_dictionary)
 
 print (sd)
