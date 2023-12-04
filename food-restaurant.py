@@ -20,6 +20,8 @@ with st.sidebar:
 
 st.title("Food Restaurant Recommendation") 
 st.caption("A clean suggestion for easier way to find a restaurant")
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
