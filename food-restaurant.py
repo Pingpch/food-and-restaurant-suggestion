@@ -2,12 +2,26 @@ from openai import OpenAI
 import streamlit as st 
 import pandas as pd
 
-prompt = """Create a 20 recommendation according to higher rating to lowest rating list of restaurants in 
-a place where clients request in the request box, rating score is from 5 to 1. And write a short review of the food, 
-according to real reviews. And then show the price range of each restaurant, switch and calculate the price from 
-any currency to USD and then calculate it to THB. And then show the location of the restaurant on the map by the following information:
-province, district, subdistrict, and street name. And then show the opening time and closing time of the restaurant.
+prompt = """Act as an AI assistant to help users find a restaurant based on their preferences.
+List the suggestions in a JSON array, one suggestion per line.
+"Name" - Name of the restaurant
+"Rating" - Rating of the restaurant
+"Price" - Price of the restaurant
+"Address" - Address of the restaurant
+"Phone" - Phone number of the restaurant
+"Reviews" - Few reviews of the restaurant
 """
+
+response = client.completions.create(
+    engine="davinci",
+    prompt=prompt,
+    max_tokens=100,
+    temperature=0.9,
+    top_p=1,
+    frequency_penalty=0.0,
+    presence_penalty=0.6,
+    stop=["\n"],
+)
 
 
 st.set_page_config(
@@ -16,13 +30,14 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded",
 )
+
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
     "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
     "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
 
-st.title("Food Restaurant Recommendation")
+st.title("Food Restaurant Recommendation") 
 st.caption("A clean suggestion for easier way to find a restaurant")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
@@ -42,5 +57,5 @@ if prompt := st.chat_input():
     msg = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
-
+    st.session_state.messages = st.session_state.messages[-5:]  
 
