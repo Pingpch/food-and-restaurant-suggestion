@@ -12,29 +12,19 @@ according to real reviews. And then show the price range of each restaurant, swi
 any currency to USD and then calculate it to THB. And then show the location of the restaurant on the map by the following information:
 province, district, subdistrict, and street name. And then show the opening time and closing time of the restaurant.
 """
-st.title("Food Restaurant")
+st.header('Food Restaurant', divider='rainbow')
+
 st.subheader("This is a food restaurant recommendation webpage")
-user_input = st.text_area("Enter some specific place that you want to find a restaurant", "Thailand, Bangkok")
 
-st.title('Writing tutor')
-st.markdown('Input the writing that you want to improve. \n\
-            The AI will give you suggestions on how to improve it.')
+title = st.text_input('Enter a specific place where you want us to make a suggestion.', ' ')
 
-user_input = st.text_area("Enter some text to correct:", "Your text here")
 
-# submit button after text input
-if st.button('Submit'):
-    messages_so_far = [
-        {"role": "system", "content": prompt},
-        {'role': 'user', 'content': user_input},
-    ]
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=messages_so_far
-    )
-    # Show the response from the AI in a box
-    st.markdown('**AI response:**')
-    suggestion_dictionary = response.choices[0].message.content
+# submit button
+st.button("submit", type="primary")
+
+# Show the response from the AI in a box
+st.markdown('**AI response:**')
+suggestion_dictionary = response.choices[0].message.content
 
 sd = json.loads(suggestion_dictionary)
 
