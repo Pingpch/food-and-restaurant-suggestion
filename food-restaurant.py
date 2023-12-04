@@ -2,11 +2,6 @@ from openai import OpenAI
 import streamlit as st 
 import pandas as pd
 
-
-
-
-
-
 prompt = """Create a 20 recommendation according to higher rating to lowest rating list of restaurants in 
 a place where clients request in the request box, rating score is from 5 to 1. And write a short review of the food, 
 according to real reviews. And then show the price range of each restaurant, switch and calculate the price from 
@@ -15,16 +10,12 @@ province, district, subdistrict, and street name. And then show the opening time
 """
 
 
-
-
-#title = st.text_input('Enter a specific place where you want us to make a suggestion.', ' ')
-
-
-
-
-
-
-
+st.set_page_config(
+    page_title="Food Restaurant Recommendation",
+    page_icon="🍔",
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
