@@ -1,6 +1,7 @@
 from openai import OpenAI
 import streamlit as st 
 import pandas as pd
+import streamlit_pandas as sp
 
 prompt = """Act as an AI assistant to help users find a restaurant based on their preferences.
 List the suggestions in a JSON array, one suggestion per line.
@@ -37,16 +38,8 @@ st.chat_message("assistant").write(msg)
 st.session_state.messages = st.session_state.messages[-5:]  
 
 
-response = client.completions.create(
-    engine="davinci",
-    prompt=prompt,
-    max_tokens=100,
-    temperature=0.9,
-    top_p=1,
-    frequency_penalty=0.0,
-    presence_penalty=0.6,
-    stop=["\n"],
-)
+
+
 
 
 st.set_page_config(
